@@ -65,7 +65,7 @@
     {foreach $commit in $commitPage.values}
         <tr data-commitid="{$commit.id}" class="commit-row {if length($commit.parents) >= 2}merge{/if}">
             <td class="author">
-                {call bitbucket.internal.widget.avatarWithName}
+                {call bitbucket.internal.widget.avatar.avatar.avatarWithName}
                     {param size: 'small' /}
                     {param person: $commit.author /}
                     {param link: true /}
@@ -73,26 +73,25 @@
                 {/call}
             </td>
             <td class="commit">
-                {call bitbucket.internal.feature.commit.link}
+                {call bitbucket.internal.feature.commit.commitLink.commitLink.link}
                     {param repository: $repository /}
                     {param commit: $commit /}
+                    {param triggerMode: 'hover-accessible' /}
                 {/call}
+
                 <!-- show merge lozenge/icon if is a merge commit, eg has 2+ parents -->
                 {if length($commit.parents) >= 2}
-                    {call bitbucket.internal.widget.lozenge.merge}
+                    {call bitbucket.internal.widget.lozenge.lozenge.merge}
                         {param abbreviated: true /}
                     {/call}
                 {/if}
             </td>
             <td class="message"><span>{$commit.message|truncate:500|escapeHtml}</span></td>
             <td class="comment-count">
-                {if $commit.attributes and $commit.attributes.commentCount}
-                    // looped because $commit.attributes has sets of values, should only ever loop once
-                    {foreach $count in $commit.attributes.commentCount}
-                        {call bitbucket.internal.feature.commentCount}
-                            {param count: $count /}
-                        {/call}
-                    {/foreach}
+                {if $commit.properties and $commit.properties.commentCount}
+                    {call bitbucket.internal.feature.commentCount.commentCount.commentCount}
+                        {param count: $commit.properties.commentCount /}
+                    {/call}
                 {/if}
             </td>
             <td class="timestamp">
