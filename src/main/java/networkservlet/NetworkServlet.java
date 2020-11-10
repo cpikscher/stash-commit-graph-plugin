@@ -81,7 +81,7 @@ public class NetworkServlet extends HttpServlet {
         Map<String, List<Ref>> labels = this.getLabels(repository);
         Page<Commit> commits = this.getCommits(repository, limit, offset);
 
-        webResourceManager.requireResource("com.plugin.commitgraph.commitgraph:commitgraph-resources");
+        webResourceManager.requireResource("com.plugin.commitgraph.commitgraphold:commitgraph-resources");
         render(resp, (contentsOnly ? NETWORK_PAGE_FRAGMENT : NETWORK_PAGE), ImmutableMap.of(
                 "repository", repository,
                 "commitPage", commits,
@@ -165,7 +165,7 @@ public class NetworkServlet extends HttpServlet {
         try {
             soyTemplateRenderer.render(
                 resp.getWriter(),
-                "com.plugin.commitgraph.commitgraph:network-soy-templates",
+                "com.plugin.commitgraph.commitgraphold:network-soy-templates",
                 templateName,
                 data
             );
